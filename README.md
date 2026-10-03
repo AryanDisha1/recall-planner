@@ -4,19 +4,28 @@ A lightweight, mobile-first spaced-revision planner that runs in a browser and c
 
 ## Run it locally
 
-The app is static and has no build step. Serve this folder from a local web server, then open its URL in your browser. For example, if Python is installed:
+Install Node.js, open a terminal in this folder, then run:
 
 ```sh
-python -m http.server 8000
+npm install
+npm run dev
 ```
 
-Open `http://localhost:8000`. For phone use, the phone and computer need to be on the same Wi-Fi network and you should open `http://<computer-local-IP>:8000`. Browsers generally require HTTPS for installation and notifications outside localhost, so to install it from your phone, publish the folder to an HTTPS static host (such as GitHub Pages or Netlify), then use your browser’s **Add to Home Screen** option.
+On Windows PowerShell, if it blocks `npm`, use the command shim:
+
+```powershell
+npm.cmd install
+npm.cmd run dev
+```
+
+Open the local URL printed in the terminal (usually `http://localhost:5173`). To preview on a phone on the same Wi-Fi, use the Network URL Vite prints. Phone installation and offline features generally require HTTPS; deploy the static app to an HTTPS host such as GitHub Pages to install it from the phone’s **Add to Home Screen** option.
 
 ## Features
 
-- Add as many topics as you need, with an optional subject.
-- Set the first review for tomorrow, 2 days, 3 days, or one week.
-- Mark a review complete to schedule the next one at 1, 3, 7, 14, then 30 day intervals.
+- Add subjects and group related topics into a subject plan.
+- Choose from editable review days. The default targets are day 1, 3, 7, 15, 30, 60, 90, 120, 180, and 365 after adding a topic.
+- Mark each review complete to move to the next target day. Edit the sequence any time in Settings; completing the last review marks the plan complete.
+- Topics are shown together under subject headings; selecting a subject filters the plan. Topics and their next review date can be edited.
 - Filter all, due, and upcoming topics; see today’s review totals.
 - Data is stored in the browser on this device. Export a JSON backup in Settings.
 - Responsive layout, offline app shell, and home-screen install support.
