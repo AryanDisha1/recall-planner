@@ -88,7 +88,8 @@
     editingTopicId=null;
     $('topicForm').reset();
     $('dialogTitle').textContent='Add a topic';$('topicSubmitButton').textContent='Add to my plan';
-    $('firstIntervalWrap').hidden=false;$('nextReviewWrap').hidden=true;
+    $('topicStartDate').max=today;$('topicStartDate').value=today;
+    $('topicStartWrap').hidden=false;$('firstIntervalWrap').hidden=false;$('nextReviewWrap').hidden=true;
     refreshSubjectSelect(activeSubject);
     refreshIntervalSelect(settings.intervals[0]);
     $('topicDialog').showModal();
@@ -99,7 +100,7 @@
     editingTopicId=id;$('topicName').value=t.name;
     refreshSubjectSelect(t.subject||'');refreshIntervalSelect(settings.intervals[0]);
     $('nextReviewDate').value=t.next;$('dialogTitle').textContent='Edit topic';
-    $('topicSubmitButton').textContent='Save changes';$('firstIntervalWrap').hidden=true;$('nextReviewWrap').hidden=false;
+    $('topicSubmitButton').textContent='Save changes';$('topicStartWrap').hidden=true;$('firstIntervalWrap').hidden=true;$('nextReviewWrap').hidden=false;
     $('topicDialog').showModal();setTimeout(()=>$('topicName').focus(),50);
   }
   $('addButton').addEventListener('click',openTopic);
@@ -120,9 +121,11 @@
       t.name=name;t.subject=$('topicSubject').value;t.next=next;t.completed=false;
       editingTopicId=null;save();$('topicDialog').close();render();toast('Plan updated');return;
     }
+    const start=$('topicStartDate').value||today;
+    if(start>today){toast('Choose today or an earlier start date');return;}
     const days=Number($('firstInterval').value)||settings.intervals[0];
     const stage=Math.max(0,settings.intervals.indexOf(days));
-    topics.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),name,subject:$('topicSubject').value,created:today,next:addDays(today,days),stage,reviews:0,last:null,completed:false});
+    topics.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),name,subject:$('topicSubject').value,created:start,next:addDays(start,days),stage,reviews:0,last:null,completed:false});
     save(); $('topicDialog').close(); render(); toast('Topic added to your plan');
   });
   document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>b.closest('dialog').close()));
