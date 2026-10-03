@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta name="description" content="A calm, simple planner for spaced revision.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>Recall — Revision planner</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="Recall home"><span class="brand-mark">r</span><span>recall<span class="brand-dot">.</span></span></a>
+      <button class="icon-button" id="installButton" type="button" aria-label="Install app" title="Install app" hidden>↓</button>
+      <div class="date-chip" id="todayLabel"></div>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div>
+          <p class="eyebrow" id="greeting">YOUR STUDY SPACE</p>
+          <h1>Make it<br><em>stick.</em></h1>
+          <p class="hero-copy">A little review today saves a lot of cramming tomorrow.</p>
+        </div>
+        <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="sun"></div><div class="spark spark-one">✳</div><div class="spark spark-two">✳</div></div>
+      </section>
+
+      <section class="stats" aria-label="Study progress">
+        <div class="stat-card stat-due"><span class="stat-label">UP NEXT</span><strong id="dueCount">0</strong><span class="stat-note">topics to review</span></div>
+        <div class="stat-card"><span class="stat-label">IN YOUR PLAN</span><strong id="topicCount">0</strong><span class="stat-note">topics altogether</span></div>
+        <div class="stat-card"><span class="stat-label">DONE TODAY</span><strong id="doneCount">0</strong><span class="stat-note">reviews completed</span></div>
+      </section>
+
+      <section class="section-head">
+        <div><p class="eyebrow">YOUR PLAN</p><h2>Topics to revisit</h2></div>
+        <button class="add-button" id="addButton" type="button"><span>＋</span> Add topic</button>
+      </section>
+
+      <div class="filters" role="tablist" aria-label="Filter topics">
+        <button class="filter active" data-filter="all" role="tab" aria-selected="true">All <span id="allCount">0</span></button>
+        <button class="filter" data-filter="due" role="tab" aria-selected="false">Due <span id="filterDueCount">0</span></button>
+        <button class="filter" data-filter="upcoming" role="tab" aria-selected="false">Upcoming</button>
+      </div>
+
+      <section class="topic-list" id="topicList" aria-live="polite"></section>
+
+      <section class="tip-card"><div class="tip-icon">✦</div><div><p class="eyebrow">A GENTLE REMINDER</p><p>Small, regular reviews help move what you learn into long-term memory.</p></div></section>
+    </main>
+    <footer><span>Made for steady progress</span><button id="settingsButton" class="text-button" type="button">Settings</button></footer>
+  </div>
+
+  <dialog id="topicDialog" class="dialog">
+    <form id="topicForm" method="dialog">
+      <div class="dialog-top"><div><p class="eyebrow">GROW YOUR PLAN</p><h2 id="dialogTitle">Add a topic</h2></div><button class="close-button" type="button" data-close aria-label="Close">×</button></div>
+      <label>Topic name<input id="topicName" name="name" maxlength="80" placeholder="e.g. Cell division" required></label>
+      <label>Subject or course<input id="topicSubject" name="subject" maxlength="50" placeholder="e.g. Biology"></label>
+      <label>First review<select id="firstInterval" name="interval"><option value="1">Tomorrow</option><option value="2">In 2 days</option><option value="3">In 3 days</option><option value="7">In a week</option></select></label>
+      <p class="form-hint">After each review, the next one moves further out: 1, 3, 7, 14, then 30 days.</p>
+      <div class="form-actions"><button class="cancel-button" type="button" data-close>Cancel</button><button class="primary-button" type="submit">Add to my plan</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="settingsDialog" class="dialog">
+    <form method="dialog"><div class="dialog-top"><div><p class="eyebrow">MAKE IT YOURS</p><h2>Settings</h2></div><button class="close-button" type="button" data-close aria-label="Close">×</button></div>
+      <div class="setting-row"><div><strong>Daily reminder</strong><p>Get a nudge to check what’s due.</p></div><label class="switch"><input id="reminderToggle" type="checkbox"><span></span></label></div>
+      <label id="reminderTimeWrap" class="time-label">Reminder time<input id="reminderTime" type="time" value="19:00"></label>
+      <p class="form-hint">Notifications work when this app is installed and your browser supports them. Your topics stay saved on this device.</p>
+      <div class="form-actions"><button class="cancel-button" type="button" id="exportButton">Export data</button><button class="primary-button" type="button" id="saveSettings">Done</button></div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
