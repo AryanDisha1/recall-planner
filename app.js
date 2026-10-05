@@ -268,8 +268,7 @@ import { LocalNotifications } from '@capacitor/local-notifications';
     }catch(error){console.error('Could not schedule Android reminders.',error);}
   }
   window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;$('installButton').hidden=false;});
-  $('installButton').addEventListener('click',async()=>{if(!installPrompt){toast('In Chrome, open the three-dot menu and choose Install app or Add to Home screen.');return;}installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('installButton').hidden=true;});
-  if(!IS_ANDROID)$('installButton').hidden=false;
+  $('installButton').addEventListener('click',async()=>{if(!installPrompt)return;installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('installButton').hidden=true;});
   if(!IS_ANDROID&&'serviceWorker'in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').then(()=>checkDailyReminder()).catch(()=>{});
   if(IS_ANDROID)syncNativeReminders();else checkDailyReminder();
   refreshSubjectSelect();refreshIntervalSelect(settings.intervals[0]);render();
