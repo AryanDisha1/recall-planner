@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f5f4ef">
   <meta name="description" content="A calm, simple planner for spaced revision.">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="subjects.css">
   <title>Recall — Revision planner</title>
@@ -16,6 +16,7 @@
     <header class="topbar">
       <a class="brand" href="#home" aria-label="Recall home"><span class="brand-mark">r</span><span>recall<span class="brand-dot">.</span></span></a>
       <button class="icon-button" id="installButton" type="button" aria-label="Install app" title="Install app" hidden>↓</button>
+      <button class="theme-button" id="themeButton" type="button" aria-pressed="false">Dark mode</button>
       <div class="date-chip" id="todayLabel"></div>
     </header>
 
@@ -81,15 +82,15 @@
 
   <dialog id="settingsDialog" class="dialog">
     <form method="dialog"><div class="dialog-top"><div><p class="eyebrow">MAKE IT YOURS</p><h2>Settings</h2></div><button class="close-button" type="button" data-close aria-label="Close">×</button></div>
-      <div class="setting-row"><div><strong>Daily reminder</strong><p>Get a nudge to check what’s due.</p></div><label class="switch"><input id="reminderToggle" type="checkbox"><span></span></label></div>
+      <div class="setting-row"><div><strong>Daily reminder</strong><p>Notify you when review topics are due.</p></div><label class="switch"><input id="reminderToggle" type="checkbox"><span></span></label></div>
       <label id="reminderTimeWrap" class="time-label">Reminder time<input id="reminderTime" type="time" value="19:00"></label>
       <label class="interval-label">Revision days after adding a topic<input id="intervalSettings" type="text" inputmode="numeric" placeholder="1, 3, 7, 15, 30, 60, 90, 120, 180, 365"><small>Enter day numbers separated by commas. Each number is a target day in the topic’s schedule.</small></label>
-      <p class="form-hint">Notifications work when this app is installed and your browser supports them. Your topics stay saved on this device.</p>
-      <div class="form-actions"><button class="cancel-button" type="button" id="exportButton">Export data</button><button class="primary-button" type="button" id="saveSettings">Done</button></div>
+      <p class="form-hint" id="reminderHelp">Allow notifications when asked. With the web version, the app must be open for a scheduled reminder; reopening it checks for due topics.</p>
+      <div class="form-actions"><div class="backup-actions"><button class="cancel-button" type="button" id="importButton">Import backup</button><button class="cancel-button" type="button" id="exportButton">Export data</button><input id="importInput" type="file" accept="application/json,.json" hidden></div><button class="primary-button" type="button" id="saveSettings">Done</button></div>
     </form>
   </dialog>
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="app.js" defer></script>
+  <script type="module" src="./app.js"></script>
 </body>
 </html>
